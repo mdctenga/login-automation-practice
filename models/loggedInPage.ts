@@ -37,4 +37,9 @@ export class LoggedInPage {
   async isLogoutButtonVisible() {
     return this.page.isVisible('text=Log out');
   }
+
+  async logout() {
+    this.page.waitForSelector(this.logoutButton);
+    await this.page.click(this.logoutButton);
+  }
 }
