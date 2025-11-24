@@ -4,6 +4,7 @@ import { LoggedInPage } from '../models/loggedInPage';
 import { dropdownPage } from '../models/dropdownPage';
 import { checkboxPage } from '../models/checkboxPage';
 import { PracticePage } from '../models/practicePage';
+import { PostsAPI } from '../models/apiPage';
 
 // lesson 1
 test('As a user, I can navigate to example.com', async ({ page }) => {
@@ -60,4 +61,14 @@ test('As a user, I can get an alert message', async ({ page }) => {
     expect(dialog.message()).toBe('I am an alert box!');
     await dialog.accept();
   });
+});
+
+// lesson 6
+test('As an api engineer, I can successfully get a response from an endpoint', async ({ request }) => {
+  const apiPage = new PostsAPI(request);
+  const response = await apiPage.getPostsByPostId(1);
+  expect(response).toHaveProperty('id', 1);
+  expect(response).toHaveProperty('userId', 1);
+  expect(response).toHaveProperty('title');
+  expect(response).toHaveProperty('body');
 });
